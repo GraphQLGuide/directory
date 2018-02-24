@@ -1,4 +1,4 @@
-import { registerFragment } from 'meteor/vulcan:core';
+import { registerFragment } from 'meteor/vulcan:core'
 
 // ----------------------------- Comments ------------------------------ //
 
@@ -32,5 +32,4 @@ registerFragment(`
     baseScore
     score
   }
-`);
-
+`)

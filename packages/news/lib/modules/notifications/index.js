@@ -1,2 +1,2 @@
-import './custom_fields.js';
-import './emails.js';
+import './custom_fields.js'
+import './emails.js'

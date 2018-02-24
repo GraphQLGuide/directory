@@ -1,12 +1,12 @@
-import { registerComponent } from 'meteor/vulcan:core';
-import React from 'react';
-import { IndexLink } from 'react-router';
+import { registerComponent } from 'meteor/vulcan:core'
+import React from 'react'
+import { IndexLink } from 'react-router'
 
-const Logo = ({logoUrl, siteTitle}) => {
+const Logo = ({ logoUrl, siteTitle }) => {
   if (logoUrl) {
     return (
       <h1 className="logo-image ">
-        <IndexLink to={{pathname: "/"}}>
+        <IndexLink to={{ pathname: '/' }}>
           <img src={logoUrl} alt={siteTitle} />
         </IndexLink>
       </h1>
@@ -14,12 +14,12 @@ const Logo = ({logoUrl, siteTitle}) => {
   } else {
     return (
       <h1 className="logo-text">
-        <IndexLink to={{pathname: "/"}}>{siteTitle}</IndexLink>
+        <IndexLink to={{ pathname: '/' }}>{siteTitle}</IndexLink>
       </h1>
     )
   }
 }
 
-Logo.displayName = "Logo";
+Logo.displayName = 'Logo'
 
-registerComponent('Logo', Logo);
+registerComponent('Logo', Logo)

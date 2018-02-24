@@ -4,20 +4,21 @@ Newsletter setup
 
 */
 
-import VulcanEmail from 'meteor/vulcan:email';
-import { addCallback } from 'meteor/vulcan:core';
+import VulcanEmail from 'meteor/vulcan:email'
+import { addCallback } from 'meteor/vulcan:core'
 // email test routes (make available to client & server)
-import Newsletters from 'meteor/vulcan:newsletter';
-import { Posts } from './collection.js';
-import moment from 'moment';
+import Newsletters from 'meteor/vulcan:newsletter'
+import { Posts } from './collection.js'
+import moment from 'moment'
 
 VulcanEmail.addEmails({
-
   newsletter: {
     template: 'newsletter',
     path: '/email/newsletter',
     subject(data) {
-      return _.isEmpty(data) ? '[Generated on server]' : Newsletters.getSubject(data.PostsList);
+      return _.isEmpty(data)
+        ? '[Generated on server]'
+        : Newsletters.getSubject(data.PostsList)
     },
     data() {
       return {
@@ -61,11 +62,11 @@ VulcanEmail.addEmails({
       }
     `,
     isValid(data) {
-      return data.PostsList && data.PostsList.length;
+      return data.PostsList && data.PostsList.length
     },
     testVariables() {
       return {
-        terms : {
+        terms: {
           view: 'newsletter'
         }
       }
@@ -76,18 +77,21 @@ VulcanEmail.addEmails({
     template: 'newsletterConfirmation',
     path: '/email/newsletter-confirmation',
     subject() {
-      return 'Newsletter confirmation';
+      return 'Newsletter confirmation'
     }
   }
+})
 
-});
-
-function MarkPostsAsScheduled (email) {
-  const postsIds = _.pluck(email.data.PostsList, '_id');
+function MarkPostsAsScheduled(email) {
+  const postsIds = _.pluck(email.data.PostsList, '_id')
   // eslint-disable-next-line no-console
   console.log(postsIds)
-  const updated = Posts.update({_id: {$in: postsIds}}, {$set: {scheduledAt: new Date()}}, {multi: true}) // eslint-disable-line
+  const updated = Posts.update(
+    { _id: { $in: postsIds } },
+    { $set: { scheduledAt: new Date() } },
+    { multi: true }
+  ) // eslint-disable-line
   // eslint-disable-next-line no-console
   console.log(`updated ${updated} posts`)
 }
-addCallback('newsletter.send.async', MarkPostsAsScheduled);
+addCallback('newsletter.send.async', MarkPostsAsScheduled)

@@ -11,32 +11,42 @@ Callbacks to:
 */
 
 import { Posts } from '../../../modules/posts/index.js'
-import Users from 'meteor/vulcan:users';
-import { addCallback, getSetting, registerSetting, runCallbacks, runCallbacksAsync } from 'meteor/vulcan:core';
-import Events from 'meteor/vulcan:events';
+import Users from 'meteor/vulcan:users'
+import {
+  addCallback,
+  getSetting,
+  registerSetting,
+  runCallbacks,
+  runCallbacksAsync
+} from 'meteor/vulcan:core'
+import Events from 'meteor/vulcan:events'
 
-registerSetting('forum.trackClickEvents', true, 'Track clicks to posts pages');
+registerSetting('forum.trackClickEvents', true, 'Track clicks to posts pages')
 
 /**
  * @summary Increment the user's post count
  */
 function PostsNewIncrementPostCount(post) {
-  var userId = post.userId;
-  Users.update({ _id: userId }, { $inc: { 'postCount': 1 } });
+  var userId = post.userId
+  Users.update({ _id: userId }, { $inc: { postCount: 1 } })
 }
-addCallback('posts.new.async', PostsNewIncrementPostCount);
+addCallback('posts.new.async', PostsNewIncrementPostCount)
 
 //////////////////////////////////////////////////////
 // posts.edit.sync                                  //
 //////////////////////////////////////////////////////
 
 function PostsEditRunPostApprovedSyncCallbacks(modifier, post) {
-  if (modifier.$set && Posts.isApproved(modifier.$set) && !Posts.isApproved(post)) {
-    modifier = runCallbacks('posts.approve.sync', modifier, post);
+  if (
+    modifier.$set &&
+    Posts.isApproved(modifier.$set) &&
+    !Posts.isApproved(post)
+  ) {
+    modifier = runCallbacks('posts.approve.sync', modifier, post)
   }
-  return modifier;
+  return modifier
 }
-addCallback('posts.edit.sync', PostsEditRunPostApprovedSyncCallbacks);
+addCallback('posts.edit.sync', PostsEditRunPostApprovedSyncCallbacks)
 
 //////////////////////////////////////////////////////
 // posts.edit.async                                 //
@@ -44,20 +54,20 @@ addCallback('posts.edit.sync', PostsEditRunPostApprovedSyncCallbacks);
 
 function PostsEditRunPostApprovedAsyncCallbacks(post, oldPost) {
   if (Posts.isApproved(post) && !Posts.isApproved(oldPost)) {
-    runCallbacksAsync('posts.approve.async', post);
+    runCallbacksAsync('posts.approve.async', post)
   }
 }
-addCallback('posts.edit.async', PostsEditRunPostApprovedAsyncCallbacks);
+addCallback('posts.edit.async', PostsEditRunPostApprovedAsyncCallbacks)
 
 //////////////////////////////////////////////////////
 // posts.remove.sync                                //
 //////////////////////////////////////////////////////
 
 function PostsRemoveOperations(post) {
-  Users.update({ _id: post.userId }, { $inc: { 'postCount': -1 } });
-  return post;
+  Users.update({ _id: post.userId }, { $inc: { postCount: -1 } })
+  return post
 }
-addCallback('posts.remove.sync', PostsRemoveOperations);
+addCallback('posts.remove.sync', PostsRemoveOperations)
 
 //////////////////////////////////////////////////////
 // users.remove.async                               //
@@ -65,13 +75,13 @@ addCallback('posts.remove.sync', PostsRemoveOperations);
 
 function UsersRemoveDeletePosts(user, options) {
   if (options.deletePosts) {
-    Posts.remove({ userId: user._id });
+    Posts.remove({ userId: user._id })
   } else {
     // not sure if anything should be done in that scenario yet
     // Posts.update({userId: userId}, {$set: {author: '\[deleted\]'}}, {multi: true});
   }
 }
-addCallback('users.remove.async', UsersRemoveDeletePosts);
+addCallback('users.remove.async', UsersRemoveDeletePosts)
 
 //////////////////////////////////////////////////////
 // posts.click.async                                //
@@ -85,38 +95,42 @@ addCallback('users.remove.async', UsersRemoveDeletePosts);
 Posts.increaseClicks = (post, ip) => {
   if (getSetting('forum.trackClickEvents', true)) {
     // make sure this IP hasn't previously clicked on this post
-    let existingClickEvent = false;
+    let existingClickEvent = false
     try {
-      existingClickEvent = Events.findOne({name: 'click', 'properties.postId': post._id, 'properties.ip': ip});
+      existingClickEvent = Events.findOne({
+        name: 'click',
+        'properties.postId': post._id,
+        'properties.ip': ip
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
 
     if (!existingClickEvent) {
       // Events.log(clickEvent); // Sidebar only: don't log event
-      return Posts.update(post._id, { $inc: { clickCount: 1 } });
+      return Posts.update(post._id, { $inc: { clickCount: 1 } })
     }
   } else {
-    return Posts.update(post._id, { $inc: { clickCount: 1 } });
+    return Posts.update(post._id, { $inc: { clickCount: 1 } })
   }
-};
+}
 
 function PostsClickTracking(post, ip) {
-  return Posts.increaseClicks(post, ip);
+  return Posts.increaseClicks(post, ip)
 }
 
 // track links clicked, locally in Events collection
-// note: this event is not sent to segment cause we cannot access the current user 
-// in our server-side route /out -> sending an event would create a new anonymous 
+// note: this event is not sent to segment cause we cannot access the current user
+// in our server-side route /out -> sending an event would create a new anonymous
 // user: the free limit of 1,000 unique users per month would be reached quickly
-addCallback('posts.click.async', PostsClickTracking);
+addCallback('posts.click.async', PostsClickTracking)
 
 //////////////////////////////////////////////////////
 // posts.approve.sync                              //
 //////////////////////////////////////////////////////
 
 function PostsApprovedSetPostedAt(modifier, post) {
-  modifier.postedAt = new Date();
-  return modifier;
+  modifier.postedAt = new Date()
+  return modifier
 }
-addCallback('posts.approve.sync', PostsApprovedSetPostedAt);
+addCallback('posts.approve.sync', PostsApprovedSetPostedAt)

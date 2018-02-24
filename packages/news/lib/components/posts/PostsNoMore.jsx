@@ -1,9 +1,13 @@
-import { registerComponent } from 'meteor/vulcan:core';
-import React from "react";
-import { FormattedMessage } from 'meteor/vulcan:i18n';
+import { registerComponent } from 'meteor/vulcan:core'
+import React from 'react'
+import { FormattedMessage } from 'meteor/vulcan:i18n'
 
-const PostsNoMore = props => <p className="posts-no-more"><FormattedMessage id="posts.no_more"/></p>;
+const PostsNoMore = props => (
+  <p className="posts-no-more">
+    <FormattedMessage id="posts.no_more" />
+  </p>
+)
 
-PostsNoMore.displayName = "PostsNoMore";
+PostsNoMore.displayName = 'PostsNoMore'
 
-registerComponent('PostsNoMore', PostsNoMore);
+registerComponent('PostsNoMore', PostsNoMore)

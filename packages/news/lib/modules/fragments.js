@@ -1,4 +1,4 @@
-import { registerFragment } from 'meteor/vulcan:core';
+import { registerFragment } from 'meteor/vulcan:core'
 
 // ------------------------------ Vote ------------------------------ //
 
@@ -10,7 +10,7 @@ registerFragment(`
     power
     votedAt
   }
-`);
+`)
 
 // ------------------------------ Users ------------------------------ //
 
@@ -25,7 +25,7 @@ registerFragment(`
     emailHash
     avatarUrl
   }
-`);
+`)
 
 registerFragment(`
   fragment UsersProfile on User {
@@ -44,5 +44,4 @@ registerFragment(`
     # vulcan:comments
     commentCount
   }
-`);
-
+`)

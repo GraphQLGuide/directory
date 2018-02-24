@@ -4,21 +4,19 @@ Posts permissions
 
 */
 
-import Users from 'meteor/vulcan:users';
+import Users from 'meteor/vulcan:users'
 
-const guestsActions = [
-  'posts.view.approved'
-];
-Users.groups.guests.can(guestsActions);
+const guestsActions = ['posts.view.approved']
+Users.groups.guests.can(guestsActions)
 
 const membersActions = [
-  'posts.new', 
-  'posts.edit.own', 
+  'posts.new',
+  'posts.edit.own',
   'posts.remove.own',
-  'posts.upvote', 
-  'posts.downvote',
-];
-Users.groups.members.can(membersActions);
+  'posts.upvote',
+  'posts.downvote'
+]
+Users.groups.members.can(membersActions)
 
 const adminActions = [
   'posts.view.pending',
@@ -28,5 +26,5 @@ const adminActions = [
   'posts.new.approved',
   'posts.edit.all',
   'posts.remove.all'
-];
-Users.groups.admins.can(adminActions);
+]
+Users.groups.admins.can(adminActions)

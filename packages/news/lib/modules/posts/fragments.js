@@ -1,4 +1,4 @@
-import { registerFragment } from 'meteor/vulcan:core';
+import { registerFragment } from 'meteor/vulcan:core'
 
 registerFragment(`
   fragment PostsList on Post {
@@ -37,7 +37,7 @@ registerFragment(`
     baseScore
     score
   }
-`);
+`)
 
 registerFragment(`
   fragment PostsPage on Post {
@@ -45,5 +45,4 @@ registerFragment(`
     body
     htmlBody
   }
-`);
-
+`)

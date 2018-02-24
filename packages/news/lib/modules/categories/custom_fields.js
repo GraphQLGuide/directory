@@ -4,8 +4,8 @@ Custom fields on Posts collection
 
 */
 
-import { Posts } from '../../modules/posts/index.js';
-import { getCategoriesAsOptions } from './schema.js';
+import { Posts } from '../../modules/posts/index.js'
+import { getCategoriesAsOptions } from './schema.js'
 
 Posts.addField([
   {
@@ -18,7 +18,7 @@ Posts.addField([
       editableBy: ['members'],
       viewableBy: ['guests'],
       options: props => {
-        return getCategoriesAsOptions(props.data.CategoriesList);
+        return getCategoriesAsOptions(props.data.CategoriesList)
       },
       query: `
         CategoriesList{
@@ -31,12 +31,18 @@ Posts.addField([
       resolveAs: {
         fieldName: 'categories',
         type: '[Category]',
-        resolver: async (post, args, {currentUser, Users, Categories}) => {
-          if (!post.categoriesIds) return [];
-          const categories = _.compact(await Categories.loader.loadMany(post.categoriesIds));
-          return Users.restrictViewableFields(currentUser, Categories, categories);
+        resolver: async (post, args, { currentUser, Users, Categories }) => {
+          if (!post.categoriesIds) return []
+          const categories = _.compact(
+            await Categories.loader.loadMany(post.categoriesIds)
+          )
+          return Users.restrictViewableFields(
+            currentUser,
+            Categories,
+            categories
+          )
         },
-        addOriginalField: true,
+        addOriginalField: true
       }
     }
   },
@@ -47,4 +53,4 @@ Posts.addField([
       optional: true
     }
   }
-]);
+])

@@ -4,17 +4,21 @@ import {
   getRawComponent,
   getFragment,
   withMessages,
-  withList,
-} from 'meteor/vulcan:core';
-import { Posts } from '../../modules/posts/index.js';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { intlShape, FormattedMessage } from 'meteor/vulcan:i18n';
+  withList
+} from 'meteor/vulcan:core'
+import { Posts } from '../../modules/posts/index.js'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { intlShape, FormattedMessage } from 'meteor/vulcan:i18n'
 import { withRouter } from 'react-router'
 
 const PostsNewForm = (props, context) => {
   if (props.loading) {
-    return <div className="posts-new-form"><Components.Loading/></div>;
+    return (
+      <div className="posts-new-form">
+        <Components.Loading />
+      </div>
+    )
   }
   return (
     <Components.ShowIf
@@ -33,36 +37,44 @@ const PostsNewForm = (props, context) => {
           collection={Posts}
           mutationFragment={getFragment('PostsPage')}
           successCallback={post => {
-            props.closeModal();
-            props.router.push({pathname: props.redirect || Posts.getPageUrl(post)});
-            props.flash(context.intl.formatMessage({id: "posts.created_message"}), "success");
+            props.closeModal()
+            props.router.push({
+              pathname: props.redirect || Posts.getPageUrl(post)
+            })
+            props.flash(
+              context.intl.formatMessage({ id: 'posts.created_message' }),
+              'success'
+            )
           }}
         />
       </div>
     </Components.ShowIf>
-  );
-};
+  )
+}
 
 PostsNewForm.propTypes = {
   closeModal: PropTypes.func,
   router: PropTypes.object,
   flash: PropTypes.func,
-  redirect: PropTypes.string,
+  redirect: PropTypes.string
 }
 
 PostsNewForm.contextTypes = {
   closeCallback: PropTypes.func,
   intl: intlShape
-};
+}
 
-PostsNewForm.displayName = "PostsNewForm";
+PostsNewForm.displayName = 'PostsNewForm'
 
 const options = {
   collectionName: 'Categories',
   queryName: 'categoriesListQuery',
   fragmentName: 'CategoriesList',
   limit: 0,
-  pollInterval: 0,
-};
+  pollInterval: 0
+}
 
-registerComponent('PostsNewForm', PostsNewForm, withRouter, withMessages, [withList, options]);
+registerComponent('PostsNewForm', PostsNewForm, withRouter, withMessages, [
+  withList,
+  options
+])

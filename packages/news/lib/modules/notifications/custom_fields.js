@@ -1,9 +1,9 @@
-import Users from 'meteor/vulcan:users';
+import Users from 'meteor/vulcan:users'
 
 const notificationsGroup = {
-  name: "notifications",
+  name: 'notifications',
   order: 2
-};
+}
 
 // Add notifications options to user profile settings
 Users.addField([
@@ -14,11 +14,11 @@ Users.addField([
       type: Boolean,
       optional: true,
       defaultValue: false,
-      control: "checkbox",
+      control: 'checkbox',
       viewableBy: ['guests'],
       insertableBy: ['admins'],
       editableBy: ['admins'],
-      group: notificationsGroup,
+      group: notificationsGroup
     }
   },
   {
@@ -28,11 +28,11 @@ Users.addField([
       type: Boolean,
       optional: true,
       defaultValue: false,
-      control: "checkbox",
+      control: 'checkbox',
       viewableBy: ['guests'],
       insertableBy: ['members'],
       editableBy: ['members'],
-      group: notificationsGroup,
+      group: notificationsGroup
     }
   },
   {
@@ -42,11 +42,11 @@ Users.addField([
       type: Boolean,
       optional: true,
       defaultValue: false,
-      control: "checkbox",
+      control: 'checkbox',
       viewableBy: ['guests'],
       insertableBy: ['members'],
       editableBy: ['members'],
-      group: notificationsGroup,
+      group: notificationsGroup
     }
   },
   {
@@ -56,11 +56,11 @@ Users.addField([
       type: Boolean,
       optional: true,
       defaultValue: false,
-      control: "checkbox",
+      control: 'checkbox',
       viewableBy: ['guests'],
       insertableBy: ['members'],
       editableBy: ['members'],
-      group: notificationsGroup,
+      group: notificationsGroup
     }
   }
-]);  
+])

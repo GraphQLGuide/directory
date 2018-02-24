@@ -4,18 +4,23 @@ Posts parameters
 
 */
 
-import { Injected } from 'meteor/meteorhacks:inject-initial';
-import moment from 'moment';
-import { addCallback } from 'meteor/vulcan:core';
+import { Injected } from 'meteor/meteorhacks:inject-initial'
+import moment from 'moment'
+import { addCallback } from 'meteor/vulcan:core'
 
 // Add 'after' and 'before' properties to terms which can be used to limit posts in time.
-function PostsAddBeforeAfterParameters (parameters, terms, apolloClient) {
-
+function PostsAddBeforeAfterParameters(parameters, terms, apolloClient) {
   // console.log('// addBeforeAfterParameters')
 
   if (typeof parameters.selector.postedAt === 'undefined') {
-
-    let postedAt = {}, mAfter, mBefore, startOfDay, endOfDay, clientTimezoneOffset, serverTimezoneOffset, timeDifference;
+    let postedAt = {},
+      mAfter,
+      mBefore,
+      startOfDay,
+      endOfDay,
+      clientTimezoneOffset,
+      serverTimezoneOffset,
+      timeDifference
 
     /*
 
@@ -33,9 +38,9 @@ function PostsAddBeforeAfterParameters (parameters, terms, apolloClient) {
     */
 
     if (Meteor.isClient) {
-      clientTimezoneOffset = -1 * new Date().getTimezoneOffset();
-      serverTimezoneOffset = -1 * Injected.obj('serverTimezoneOffset').offset;
-      timeDifference = clientTimezoneOffset - serverTimezoneOffset;
+      clientTimezoneOffset = -1 * new Date().getTimezoneOffset()
+      serverTimezoneOffset = -1 * Injected.obj('serverTimezoneOffset').offset
+      timeDifference = clientTimezoneOffset - serverTimezoneOffset
 
       // console.log('client time:'+clientTimezoneOffset);
       // console.log('server time:'+serverTimezoneOffset);
@@ -43,47 +48,42 @@ function PostsAddBeforeAfterParameters (parameters, terms, apolloClient) {
     }
 
     if (terms.after) {
-
       // console.log('// after: '+terms.after);
 
-      mAfter = moment(terms.after, 'YYYY-MM-DD');
-      startOfDay = mAfter.startOf('day');
+      mAfter = moment(terms.after, 'YYYY-MM-DD')
+      startOfDay = mAfter.startOf('day')
 
-        // console.log('// normal      ', mAfter.toDate(), mAfter.valueOf());
-        // console.log('// startOfDay  ', startOfDay.toDate(), startOfDay.valueOf());
+      // console.log('// normal      ', mAfter.toDate(), mAfter.valueOf());
+      // console.log('// startOfDay  ', startOfDay.toDate(), startOfDay.valueOf());
 
       if (Meteor.isClient) {
-        startOfDay.add(timeDifference, 'minutes');
+        startOfDay.add(timeDifference, 'minutes')
         // console.log('// after add   ', startOfDay.toDate(), startOfDay.valueOf());
-        // note: on the client, dates are stored as strings, 
+        // note: on the client, dates are stored as strings,
         // so use strings for MongoDB filtering options too
-        postedAt.$gte = startOfDay.toISOString();
+        postedAt.$gte = startOfDay.toISOString()
       } else {
-        postedAt.$gte = startOfDay.toDate();
+        postedAt.$gte = startOfDay.toDate()
       }
-
     }
 
     if (terms.before) {
-
-      mBefore = moment(terms.before, 'YYYY-MM-DD');
-      endOfDay = mBefore.endOf('day');
+      mBefore = moment(terms.before, 'YYYY-MM-DD')
+      endOfDay = mBefore.endOf('day')
 
       if (Meteor.isClient) {
-        endOfDay.add(timeDifference, 'minutes');
-        postedAt.$lt = endOfDay.toISOString();
+        endOfDay.add(timeDifference, 'minutes')
+        postedAt.$lt = endOfDay.toISOString()
       } else {
-        postedAt.$lt = endOfDay.toDate();
+        postedAt.$lt = endOfDay.toDate()
       }
-
     }
 
     if (!_.isEmpty(postedAt)) {
-      parameters.selector.postedAt = postedAt;
+      parameters.selector.postedAt = postedAt
     }
-
   }
 
-  return parameters;
+  return parameters
 }
-addCallback('posts.parameters', PostsAddBeforeAfterParameters);
+addCallback('posts.parameters', PostsAddBeforeAfterParameters)

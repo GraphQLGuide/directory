@@ -1,10 +1,10 @@
-import { Posts } from '../posts/index.js';
+import { Posts } from '../posts/index.js'
 
 Posts.addField([
   {
     fieldName: 'url',
     fieldSchema: {
-      control: 'EmbedURL', // we are just extending the field url, not replacing it
+      control: 'EmbedURL' // we are just extending the field url, not replacing it
     }
   },
   {
@@ -24,7 +24,7 @@ Posts.addField([
       type: Object,
       optional: true,
       blackbox: true,
-      viewableBy: ['guests'],
+      viewableBy: ['guests']
     }
   },
   {
@@ -32,7 +32,7 @@ Posts.addField([
     fieldSchema: {
       type: String,
       optional: true,
-      viewableBy: ['guests'],
+      viewableBy: ['guests']
     }
   },
   {
@@ -40,7 +40,7 @@ Posts.addField([
     fieldSchema: {
       type: String,
       optional: true,
-      viewableBy: ['guests'],
+      viewableBy: ['guests']
     }
   }
-]);
+])

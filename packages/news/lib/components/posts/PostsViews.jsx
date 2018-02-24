@@ -1,42 +1,48 @@
-import { registerComponent, withCurrentUser, Utils } from 'meteor/vulcan:core';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
-import DropdownButton from 'react-bootstrap/lib/DropdownButton';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
-import { LinkContainer } from 'react-router-bootstrap';
+import { registerComponent, withCurrentUser, Utils } from 'meteor/vulcan:core'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n'
+import DropdownButton from 'react-bootstrap/lib/DropdownButton'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
+import { LinkContainer } from 'react-router-bootstrap'
 import { withRouter } from 'react-router'
-import Users from 'meteor/vulcan:users';
+import Users from 'meteor/vulcan:users'
 
 const PostsViews = (props, context) => {
-
-  let views = ['top', 'new', 'best'];
-  const adminViews = ['pending', 'rejected', 'scheduled'];
+  let views = ['top', 'new', 'best']
+  const adminViews = ['pending', 'rejected', 'scheduled']
 
   if (Users.canDo(props.currentUser, 'posts.edit.all')) {
-    views = views.concat(adminViews);
+    views = views.concat(adminViews)
   }
 
-  const query = _.clone(props.router.location.query);
+  const query = _.clone(props.router.location.query)
 
   return (
     <div className="posts-views">
       <DropdownButton
         bsStyle="default"
         className="views btn-secondary"
-        title={context.intl.formatMessage({id: 'posts.view'})}
+        title={context.intl.formatMessage({ id: 'posts.view' })}
         id="views-dropdown"
       >
-        {views.map(view =>
-          <LinkContainer key={view} to={{pathname: Utils.getRoutePath('posts.list'), query: {...query, view: view}}} className="dropdown-item">
+        {views.map(view => (
+          <LinkContainer
+            key={view}
+            to={{
+              pathname: Utils.getRoutePath('posts.list'),
+              query: { ...query, view: view }
+            }}
+            className="dropdown-item"
+          >
             <MenuItem>
-              <FormattedMessage id={"posts."+view}/>
+              <FormattedMessage id={'posts.' + view} />
             </MenuItem>
           </LinkContainer>
-        )}
+        ))}
         <LinkContainer to="/daily" className="dropdown-item">
           <MenuItem className="bar">
-            <FormattedMessage id="posts.daily"/>
+            <FormattedMessage id="posts.daily" />
           </MenuItem>
         </LinkContainer>
       </DropdownButton>
@@ -47,17 +53,17 @@ const PostsViews = (props, context) => {
 PostsViews.propTypes = {
   currentUser: PropTypes.object,
   defaultView: PropTypes.string
-};
+}
 
 PostsViews.defaultProps = {
   defaultView: 'top'
-};
+}
 
 PostsViews.contextTypes = {
   currentRoute: PropTypes.object,
   intl: intlShape
-};
+}
 
-PostsViews.displayName = 'PostsViews';
+PostsViews.displayName = 'PostsViews'
 
-registerComponent('PostsViews', PostsViews, withCurrentUser, withRouter);
+registerComponent('PostsViews', PostsViews, withCurrentUser, withRouter)

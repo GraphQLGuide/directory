@@ -1,4 +1,4 @@
-import { registerFragment } from 'meteor/vulcan:core';
+import { registerFragment } from 'meteor/vulcan:core'
 
 // note: fragment used by default on CategoriesList & PostsList fragments
 registerFragment(`
@@ -8,7 +8,7 @@ registerFragment(`
     name
     slug
   }
-`);
+`)
 
 registerFragment(`
   fragment CategoriesList on Category {
@@ -22,4 +22,4 @@ registerFragment(`
       ...CategoriesMinimumInfo
     }
   }
-`);
+`)

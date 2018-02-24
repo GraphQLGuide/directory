@@ -1,7 +1,6 @@
-import { addStrings } from 'meteor/vulcan:core';
+import { addStrings } from 'meteor/vulcan:core'
 
 addStrings('en', {
-
   'posts.new_post': 'New Post',
   'posts.edit': 'Edit',
   'posts.edit_success': 'Post “{title}” edited.',
@@ -40,13 +39,15 @@ addStrings('en', {
   'posts.unsubscribe': 'Unsubscribe',
   'posts.subscribed': 'You have subscribed to “{name}” comments.',
   'posts.unsubscribed': 'You have unsubscribed from “{name}” comments.',
-  'posts.subscribed_posts' : 'Posts subscribed to',
+  'posts.subscribed_posts': 'Posts subscribed to',
   'posts.link_already_posted': 'This link has already been posted.',
-  'posts.max_per_day': 'Sorry you cannot submit more than {value} posts per day.',
+  'posts.max_per_day':
+    'Sorry you cannot submit more than {value} posts per day.',
   'posts.like': 'Like',
 
   'comments.comments': 'Comments',
-  'comments.count': '{count, plural, =0 {No comments} one {# comment} other {# comments}}',
+  'comments.count':
+    '{count, plural, =0 {No comments} one {# comment} other {# comments}}',
   'comments.count_0': 'No comments',
   'comments.count_1': '1 comment',
   'comments.count_2': '{count} comments',
@@ -61,9 +62,10 @@ addStrings('en', {
   'comments.parentCommentId': 'Parent Comment ID',
   'comments.topLevelCommentId': 'Top Level Comment ID',
   'comments.body': 'Body',
-  'comments.rate_limit_error': 'Please wait {value} seconds before commenting again.',
+  'comments.rate_limit_error':
+    'Please wait {value} seconds before commenting again.',
 
-  'categories': 'Categories',
+  categories: 'Categories',
   'categories.all': 'All Categories',
   'categories.edit': 'Edit Category',
   'categories.edit_success': 'Category “{name}” edited.',
@@ -76,13 +78,12 @@ addStrings('en', {
   'categories.slug': 'Slug',
   'categories.image': 'Image',
   'categories.parentId': 'Parent ID',
-  'categories.subscribe': 'Subscribe to this category\'s posts',
-  'categories.unsubscribe': 'Unsubscribe to this category\'s posts',
+  'categories.subscribe': "Subscribe to this category's posts",
+  'categories.unsubscribe': "Unsubscribe to this category's posts",
   'categories.subscribed': 'You have subscribed to “{name}” posts.',
   'categories.unsubscribed': 'You have unsubscribed from “{name}” posts.',
-  'categories.subscribed_categories' : 'Categories subscribed to',
+  'categories.subscribed_categories': 'Categories subscribed to',
   'categories.delete_confirm': 'Delete category “{title}”?',
   'categories.delete_success': 'Category “{name}” deleted.',
-  'categories.invalid': 'Invalid category',
-
-});
+  'categories.invalid': 'Invalid category'
+})

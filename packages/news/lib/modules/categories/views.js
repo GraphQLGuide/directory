@@ -4,7 +4,7 @@ Default sort
 
 */
 
-import { Categories } from './collection.js';
+import { Categories } from './collection.js'
 
 Categories.addDefaultView(terms => ({
   options: {
@@ -12,4 +12,4 @@ Categories.addDefaultView(terms => ({
       order: 1
     }
   }
-}));
+}))

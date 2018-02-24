@@ -1,3 +1,2 @@
-
-import './callbacks.js';
-import './indexes.js';
+import './callbacks.js'
+import './indexes.js'
