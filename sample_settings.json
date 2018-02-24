@@ -1,8 +1,7 @@
 {
   "public": {
-
-    "title": "Your site title",
-    "tagline":"Your site tagline",
+    "title": "GraphQL News",
+    "tagline": "HN for GraphQL",
 
     "logoUrl": "http://placekitten.com/250/80",
     "logoHeight": "80",
@@ -15,21 +14,25 @@
     "twitterAccount": "foo",
     "facebookPage": "http://facebook.com/foo",
 
-    "googleAnalyticsId":"123foo"
-
+    "googleAnalyticsId": "123foo"
   },
 
   "defaultEmail": "hello@world.com",
-  "mailUrl": "smtp://username%40yourdomain.mailgun.org:yourpassword123@smtp.mailgun.org:587/",
+  "mailUrl":
+    "smtp://username%40yourdomain.mailgun.org:yourpassword123@smtp.mailgun.org:587/",
 
   "oAuth": {
-    "twitter": {
-      "consumerKey": "foo",
-      "secret": "bar"
-    },
-    "facebook": {
-      "appId": "foo",
+    "github": {
+      "clientId": "foo",
       "secret": "bar"
     }
+  },
+  
+  "newsletter": {
+    "frequency": [1, 2, 3, 4, 5, 6, 7],
+    "time": "14:20",
+    "enabledInDev": false,
+    "enable": true,
+    "provider": "mailchimp"
   }
 }
