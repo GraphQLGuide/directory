@@ -7,7 +7,7 @@
   "scripts": {
     "prestart": "node .vulcan/prestart_vulcan.js",
     "start": "meteor --settings settings.json",
-    "lint": "eslint --cache --ext .jsx,js packages"
+    "lint": "eslint --cache --ext .js packages"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.38",
