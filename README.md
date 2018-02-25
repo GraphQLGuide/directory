@@ -1,22 +1,22 @@
-### GraphQL News
+### GraphQL Directory
 
-*HN for GraphQL*
+*All the Endpoints*
 
-[graphql.news](https://graphql.news)
+[graphql.directory](https://graphql.directory)
 
 # Dev
 
 [Vulcan docs](http://docs.vulcanjs.org)
 
-[staging.graphql.news](https://staging.graphql.news)
+[staging.graphql.directory](https://staging.graphql.directory)
 
-[Our CircleCI](https://circleci.com/gh/GraphQLGuide/news/)
+[Our CircleCI](https://circleci.com/gh/GraphQLGuide/directory/)
 
 ## Setup
 
 ```
-git clone git@github.com:GraphQLGuide/news.git
-cd news
+git clone git@github.com:GraphQLGuide/directory.git
+cd directory
 npm install
 npm start
 ```
