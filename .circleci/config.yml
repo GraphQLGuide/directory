@@ -23,76 +23,76 @@ jobs:
       - checkout
 
       - restore_cache:
-        key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
+          key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
-        key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
+          key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
-        name: Restore Meteor Package Cache
-        key: packages-cache-{{ checksum ".meteor/versions" }}
+          name: Restore Meteor Package Cache
+          key: packages-cache-{{ checksum ".meteor/versions" }}
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run:
-        name: Create Settings File
-        command: echo $METEOR_SETTINGS > settings.json
+          name: Create Settings File
+          command: echo $METEOR_SETTINGS > settings.json
       - run:
-        name: Create Galaxy Token
-        command: echo $METEOR_TOKEN > token.json
+          name: Create Galaxy Token
+          command: echo $METEOR_TOKEN > token.json
 
       - run:
-        name: restore cached meteor bin
-        command: |
-          if [ -e ~/build-temp/meteor-bin ]
-          then
-              echo "Cached Meteor bin found, restoring it"
-              sudo cp ~/build-temp/meteor-bin /usr/local/bin/meteor
-          else
-              echo "No cached Meteor bin found."
-          fi
+          name: restore cached meteor bin
+          command: |
+            if [ -e ~/build-temp/meteor-bin ]
+            then
+                echo "Cached Meteor bin found, restoring it"
+                sudo cp ~/build-temp/meteor-bin /usr/local/bin/meteor
+            else
+                echo "No cached Meteor bin found."
+            fi
       - run:
-        name: install Meteor
-        command: |
-          # only install meteor if bin isn't found
-          command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
+          name: install Meteor
+          command: |
+            # only install meteor if bin isn't found
+            command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
       - run:
-        name: check versions
-        command: |
-          echo "Meteor version:"
-          # this forces Meteor to download whatever release your project is using
-          meteor --version
-          which meteor
-          echo "Meteor node version:"
-          meteor node -v
-          echo "Meteor npm version:"
-          meteor npm -v
+          name: check versions
+          command: |
+            echo "Meteor version:"
+            # this forces Meteor to download whatever release your project is using
+            meteor --version
+            which meteor
+            echo "Meteor node version:"
+            meteor node -v
+            echo "Meteor npm version:"
+            meteor npm -v
       - run: 
-        name: install npm packages
-        command: meteor npm i
+          name: install npm packages
+          command: meteor npm i
       - run:
-        name: copy meteor bin to build cache
-        command: |
-          mkdir -p ~/build-temp
-          cp /usr/local/bin/meteor ~/build-temp/meteor-bin
+          name: copy meteor bin to build cache
+          command: |
+            mkdir -p ~/build-temp
+            cp /usr/local/bin/meteor ~/build-temp/meteor-bin
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - save_cache:
-        key: packages-cache-{{ checksum ".meteor/versions" }}
-        paths:
-          - .meteor/local/
+          key: packages-cache-{{ checksum ".meteor/versions" }}
+          paths:
+            - .meteor/local/
       - save_cache:
-        key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
-        paths:
-          - ~/build-temp
+          key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - ~/build-temp
       - save_cache:
-        key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
-        paths:
-          - ~/.meteor
+          key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - ~/.meteor
   
 
           # run tests!
