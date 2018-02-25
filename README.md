@@ -1,6 +1,8 @@
-HN for GraphQL
+### GraphQL News
 
-[https://graphql.news](https://graphql.news)
+*HN for GraphQL*
+
+[graphql.news](https://graphql.news)
 
 # Dev
 
