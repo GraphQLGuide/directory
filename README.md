@@ -4,15 +4,15 @@
 
 [graphql.directory](https://graphql.directory)
 
-# Dev
+---
 
-[Vulcan docs](http://docs.vulcanjs.org)
+## Dev
 
-[staging.graphql.directory](https://staging.graphql.directory)
+- [staging.graphql.directory](https://staging.graphql.directory)
+- [Vulcan docs](http://docs.vulcanjs.org)
+- [Our CircleCI](https://circleci.com/gh/GraphQLGuide/directory/)
 
-[Our CircleCI](https://circleci.com/gh/GraphQLGuide/directory/)
-
-## Setup
+### Setup
 
 ```
 git clone git@github.com:GraphQLGuide/directory.git
